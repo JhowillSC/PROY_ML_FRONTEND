@@ -3,6 +3,8 @@ import { useState, type FormEvent } from 'react'
 import { login } from '../../services/auth.service'
 import { useApiError } from '../../Hooks/useApiError'
 import { useToast } from '../../Hooks/useToast'
+import { useAuth } from '../../contexts/AuthContext'
+import loginImage from '../../assets/ic_log.png'
 import styles from './Styles.module.css'
 
 export function LoginPage() {
@@ -11,14 +13,27 @@ export function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast, showToast, clearToast } = useToast()
   const { getMessage } = useApiError()
+  const { setSession } = useAuth()
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     clearToast()
+
+    if (!logUsu.trim()) {
+      showToast('Por favor ingresa tu usuario.', 'error')
+      return
+    }
+
+    if (!pasUsu.trim()) {
+      showToast('Por favor ingresa tu contraseña.', 'error')
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
-      const response = await login(logUsu, pasUsu)
+      const response = await login(logUsu.trim(), pasUsu)
+      setSession(logUsu.trim())
       showToast(response.mensaje, 'success')
     } catch (error) {
       showToast(getMessage(error), 'error')
@@ -28,47 +43,66 @@ export function LoginPage() {
   }
 
   return (
-    <main className={styles.page}>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <h1>Login</h1>
+    <main className={styles['login-wrapper']}>
+      <div>
+        <div className={styles['login-wrapper-h1']}>
+          <h1>Plataforma de Proyecciones de Admisión</h1>
+        </div>
 
-        <label className={styles.field}>
-          Usuario
-          <input
-            autoComplete="username"
-            name="logUsu"
-            onChange={(event) => setLogUsu(event.target.value)}
-            required
-            type="text"
-            value={logUsu}
-          />
-        </label>
+        <div className={styles['login-container']}>
+          <div className={styles['login-split']}>
+            <div className={styles['login-logo']}>
+              <img
+                alt="Logo del sistema de admisión"
+                src={loginImage}
+              />
+            </div>
 
-        <label className={styles.field}>
-          Contraseña
-          <input
-            autoComplete="current-password"
-            name="pasUsu"
-            onChange={(event) => setPasUsu(event.target.value)}
-            required
-            type="password"
-            value={pasUsu}
-          />
-        </label>
+            <form className={styles['login-form']} onSubmit={handleSubmit}>
+              <h2>Iniciar sesión</h2>
 
-        <button disabled={isSubmitting} type="submit">
-          {isSubmitting ? 'Enviando...' : 'Ingresar'}
-        </button>
+              <div className={styles['form-group']}>
+                <label htmlFor="logUsu">Usuario</label>
+                <input
+                  autoComplete="username"
+                  autoFocus
+                  id="logUsu"
+                  name="logUsu"
+                  onChange={(event) => setLogUsu(event.target.value)}
+                  placeholder="Ingrese su usuario"
+                  required
+                  type="text"
+                  value={logUsu}
+                />
+              </div>
 
-        {toast && (
-          <div className={`${styles.toast} ${styles[toast.type]}`} role="alert">
-            {toast.message}
-            <button aria-label="Cerrar mensaje" onClick={clearToast} type="button">
-              Cerrar
-            </button>
+              <div className={styles['form-group']}>
+                <label htmlFor="pasUsu">Contraseña</label>
+                <input
+                  autoComplete="current-password"
+                  id="pasUsu"
+                  name="pasUsu"
+                  onChange={(event) => setPasUsu(event.target.value)}
+                  placeholder="Ingrese su contraseña"
+                  required
+                  type="password"
+                  value={pasUsu}
+                />
+              </div>
+
+              <button className={styles.btnLogin} disabled={isSubmitting} type="submit">
+                {isSubmitting ? 'Ingresando...' : 'Acceder'}
+              </button>
+
+              {toast && (
+                <div className={`${styles.toast} ${styles[toast.type]}`} role="alert">
+                  <span>{toast.message}</span>
+                </div>
+              )}
+            </form>
           </div>
-        )}
-      </form>
+        </div>
+      </div>
     </main>
   )
 }

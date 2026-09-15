@@ -8,6 +8,10 @@ export const useApiError = () => {
     if (axios.isAxiosError<ApiErrorResponse>(error)) {
       const responseData: unknown = error.response?.data
 
+      if (!error.response) {
+        return 'No se pudo conectar con el servidor.'
+      }
+
       if (typeof responseData === 'string' && responseData.trim()) {
         return responseData
       }
