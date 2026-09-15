@@ -6,6 +6,7 @@ import { configureInterceptors } from './interceptor'
 const apiClient = axios.create({
   baseURL: env.apiUrl,
   headers: {
+    Accept: '*/*',
     'Content-Type': 'application/json',
   },
 })
