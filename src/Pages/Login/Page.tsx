@@ -48,7 +48,7 @@ export function LoginPage() {
     <main className={styles['login-wrapper']}>
       <div>
         <div className={styles['login-wrapper-h1']}>
-          <h1>Plataforma de Proyecciones de Admisión</h1>
+          <h1>Plataforma Analítica</h1>
         </div>
 
         <div className={styles['login-container']}>
