@@ -7,25 +7,21 @@ interface AuthContextValue {
   logout: () => void
 }
 
-const storedUsername = localStorage.getItem('usuario')
-
 const AuthContext = createContext<AuthContextValue>({
-  isAuthenticated: Boolean(storedUsername),
-  username: storedUsername,
+  isAuthenticated: false,
+  username: null,
   setSession: () => undefined,
   logout: () => undefined,
 })
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [username, setUsername] = useState<string | null>(storedUsername)
+  const [username, setUsername] = useState<string | null>(null)
 
   const setSession = (user: string) => {
-    localStorage.setItem('usuario', user)
     setUsername(user)
   }
 
   const logout = () => {
-    localStorage.removeItem('usuario')
     setUsername(null)
   }
 

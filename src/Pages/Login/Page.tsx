@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { login } from '../../services/auth.service'
 import { useApiError } from '../../Hooks/useApiError'
@@ -14,6 +15,7 @@ export function LoginPage() {
   const { toast, showToast, clearToast } = useToast()
   const { getMessage } = useApiError()
   const { setSession } = useAuth()
+  const navigate = useNavigate()
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -32,9 +34,9 @@ export function LoginPage() {
     setIsSubmitting(true)
 
     try {
-      const response = await login(logUsu.trim(), pasUsu)
+      await login(logUsu.trim(), pasUsu)
       setSession(logUsu.trim())
-      showToast(response.mensaje, 'success')
+      navigate('/dashboard/general', { replace: true })
     } catch (error) {
       showToast(getMessage(error), 'error')
     } finally {
