@@ -1,0 +1,194 @@
+﻿/* ── Entry animation ── */
+.content {
+  display: grid;
+  gap: 22px;
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 450ms ease, transform 450ms ease;
+  animation: fadeIn 500ms ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Header (mirrors DashboardFrame) ── */
+.header p {
+  margin: 0 0 8px;
+  color: #bd2714;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.header h1 {
+  margin: 0;
+  color: #1f2933;
+  font-size: clamp(24px, 3vw, 34px);
+}
+
+.header span {
+  display: block;
+  max-width: 850px;
+  margin-top: 8px;
+  color: #77808b;
+  font-size: 14px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 14px;
+}
+
+.indicator i {
+  display: block;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(189, 39, 20, 0.25);
+}
+
+.indicator i:first-child {
+  width: 32px;
+  background: #bd2714;
+}
+
+.indicator i:nth-child(2) { width: 8px; }
+.indicator i:last-child  { width: 4px; }
+
+/* ── Card ── */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 64px 40px;
+  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid #e4e6e9;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow:
+    0 12px 30px rgba(25, 32, 42, 0.08),
+    0 2px 6px rgba(25, 32, 42, 0.04);
+}
+
+/* ── Icon ── */
+.iconWrapper {
+  display: grid;
+  place-items: center;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 8px;
+  border-radius: 20px;
+  color: #bd2714;
+  background: rgba(189, 39, 20, 0.08);
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+}
+
+/* ── Badge ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: rgba(189, 39, 20, 0.08);
+  color: #bd2714;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.badge::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #bd2714;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.75); }
+}
+
+/* ── Text ── */
+.heading {
+  margin: 0;
+  color: #1f2933;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.description {
+  margin: 0;
+  max-width: 480px;
+  color: #77808b;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* ── Progress bar ── */
+.progressBar {
+  width: 260px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(189, 39, 20, 0.12);
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.progressFill {
+  height: 100%;
+  width: 45%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #bd2714, #e84830);
+  animation: shimmer 2.2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%   { width: 30%; opacity: 0.8; }
+  50%  { width: 60%; opacity: 1; }
+  100% { width: 30%; opacity: 0.8; }
+}
+
+.progressLabel {
+  color: #aaaaaa;
+  font-size: 12px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .card {
+    padding: 48px 24px;
+  }
+}

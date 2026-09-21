@@ -3,7 +3,8 @@ export interface DashboardModule {
   shortTitle: string
   title: string
   subtitle: string
-  powerBiUrl: string
+  powerBiUrl?: string
+  comingSoon?: boolean
 }
 
 export const dashboardModules: DashboardModule[] = [
@@ -31,4 +32,12 @@ export const dashboardModules: DashboardModule[] = [
     powerBiUrl:
       'https://app.powerbi.com/view?r=eyJrIjoiZjJiNWFmYWEtMGJjNS00MDI1LWE4NTMtZjE2OGJiNTYxNDhkIiwidCI6Ijk4MjAxZmVmLWQ5ZjYtNGU2OC04NGY1LWMyNzA1MDc0ZTM0MiIsImMiOjR9&navContentPaneEnabled=false&filterPaneEnabled=false',
   },
+  {
+    path: '/dashboard/predictivo-facultades',
+    shortTitle: 'Predictivo – Facultades',
+    title: 'Módulo Predictivo – Facultades',
+    subtitle: 'Análisis predictivo de postulantes y tendencias por facultad.',
+    comingSoon: true,
+  },
 ]
+
